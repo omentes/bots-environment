@@ -37,7 +37,6 @@ services:
       - tier
 
   vmagent:
-    container_name: vmagent
     image: victoriametrics/vmagent
     depends_on:
       - "victoriametrics"
