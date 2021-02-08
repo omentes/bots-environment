@@ -48,7 +48,6 @@ help: .title
 	echo '  mysql-dump: Create mysqldump {path/to/dump}'
 	echo '  redis-m:    Run redis monitor'
 	echo '  network:    Create external docker network'
-	echo '  build:      Build or rebuild services'
 	echo ''
 
 %:
