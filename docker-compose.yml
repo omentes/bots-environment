@@ -36,6 +36,75 @@ services:
     networks:
       - tier
 
+  vmagent:
+    container_name: vmagent
+    image: victoriametrics/vmagent
+    depends_on:
+      - "victoriametrics"
+    ports:
+      - 8429:8429
+    volumes:
+      - vmagentdata:/vmagentdata
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--promscrape.config=/etc/prometheus/prometheus.yml'
+      - '--remoteWrite.url=http://victoriametrics:8428/api/v1/write'
+    networks:
+      - tier
+    restart: always
+  victoriametrics:
+    container_name: victoriametrics
+    image: victoriametrics/victoria-metrics
+    ports:
+      - 8428:8428
+      - 8089:8089
+      - 8089:8089/udp
+      - 2003:2003
+      - 2003:2003/udp
+      - 4242:4242
+    volumes:
+      - vmdata:/storage
+    command:
+      - '--storageDataPath=/storage'
+      - '--graphiteListenAddr=:2003'
+      - '--opentsdbListenAddr=:4242'
+      - '--httpListenAddr=:8428'
+      - '--influxListenAddr=:8089'
+    networks:
+      - tier
+    restart: always
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:7.1.1
+    user: "0"
+    depends_on:
+      - "victoriametrics"
+    ports:
+      - 3000:3000
+    environment:
+      - GF_RENDERING_SERVER_URL=http://renderer:8881/render
+      - GF_RENDERING_CALLBACK_URL=http://grafana:3000/
+      - GF_LOG_FILTERS=rendering:debug
+    volumes:
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - grafanadata:/var/lib/grafana
+      - ./provisioning/:/etc/grafana/provisioning/
+      - ./dashboards/victoriametrics.json:/var/lib/grafana/dashboards/vm.json
+      - ./dashboards/vmagent.json:/var/lib/grafana/dashboards/vmagent.json
+    networks:
+      - tier
+    restart: always
+  renderer:
+    image: grafana/grafana-image-renderer:latest
+    restart: always
+    ports:
+      - 8881:8081
+
+volumes:
+  vmagentdata: {}
+  vmdata: {}
+  grafanadata: {}
+
 networks:
   tier:
     external:
