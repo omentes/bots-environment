@@ -35,49 +35,30 @@ services:
       - '8006:80'
     networks:
       - tier
+  pushgateway:
+    image: prom/pushgateway:v0.4.0
+    restart: always
+    ports:
+      - 9091:9091
+    networks:
+      - tier
 
-  vmagent:
-    image: victoriametrics/vmagent
-    depends_on:
-      - "victoriametrics"
+  prometheus:
+    image: prom/prometheus:v2.0.0
+    command: --config.file=/etc/prometheus/prometheus.yml
+    restart: always
     ports:
-      - 8429:8429
+      - 9090:9090
     volumes:
-      - vmagentdata:/vmagentdata
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--promscrape.config=/etc/prometheus/prometheus.yml'
-      - '--remoteWrite.url=http://victoriametrics:8428/api/v1/write'
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alerts/:/etc/prometheus/rules.d/
     networks:
       - tier
-    restart: always
-  victoriametrics:
-    container_name: victoriametrics
-    image: victoriametrics/victoria-metrics
-    ports:
-      - 8428:8428
-      - 8089:8089
-      - 8089:8089/udp
-      - 2003:2003
-      - 2003:2003/udp
-      - 4242:4242
-    volumes:
-      - vmdata:/storage
-    command:
-      - '--storageDataPath=/storage'
-      - '--graphiteListenAddr=:2003'
-      - '--opentsdbListenAddr=:4242'
-      - '--httpListenAddr=:8428'
-      - '--influxListenAddr=:8089'
-    networks:
-      - tier
-    restart: always
+
   grafana:
     container_name: grafana
     image: grafana/grafana:7.1.1
     user: "0"
-    depends_on:
-      - "victoriametrics"
     ports:
       - 3000:3000
     environment:
@@ -87,9 +68,6 @@ services:
     volumes:
       - ./grafana.ini:/etc/grafana/grafana.ini
       - grafanadata:/var/lib/grafana
-      - ./provisioning/:/etc/grafana/provisioning/
-      - ./dashboards/victoriametrics.json:/var/lib/grafana/dashboards/vm.json
-      - ./dashboards/vmagent.json:/var/lib/grafana/dashboards/vmagent.json
     networks:
       - tier
     restart: always
