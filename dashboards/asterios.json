@@ -50,24 +50,24 @@
             "query": {
               "params": [
                 "A",
-                "1m",
+                "10s",
                 "now"
               ]
             },
             "reducer": {
               "params": [],
-              "type": "count"
+              "type": "sum"
             },
             "type": "query"
           }
         ],
         "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
+        "for": "30s",
+        "frequency": "5s",
         "handler": 1,
         "message": "X3 HERAK",
         "name": "X3 alert",
-        "noDataState": "no_data",
+        "noDataState": "alerting",
         "notifications": [
           {
             "uid": "jxOwPDYGk"
@@ -81,8 +81,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
@@ -112,7 +111,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.1",
+      "pluginVersion": "7.1.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -195,20 +194,20 @@
             "query": {
               "params": [
                 "A",
-                "1m",
+                "10s",
                 "now"
               ]
             },
             "reducer": {
               "params": [],
-              "type": "count"
+              "type": "sum"
             },
             "type": "query"
           }
         ],
         "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
+        "for": "30s",
+        "frequency": "5s",
         "handler": 1,
         "message": "X5 HERAK",
         "name": "X5 alert",
@@ -226,8 +225,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
@@ -257,7 +255,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.1",
+      "pluginVersion": "7.1.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -343,7 +341,7 @@
             "query": {
               "params": [
                 "A",
-                "1m",
+                "10s",
                 "now"
               ]
             },
@@ -374,8 +372,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
@@ -405,7 +402,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.1",
+      "pluginVersion": "7.1.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -488,20 +485,20 @@
             "query": {
               "params": [
                 "A",
-                "1m",
+                "10s",
                 "now"
               ]
             },
             "reducer": {
               "params": [],
-              "type": "count"
+              "type": "sum"
             },
             "type": "query"
           }
         ],
         "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
+        "for": "30s",
+        "frequency": "5s",
         "handler": 1,
         "message": "Bot herak.",
         "name": "BOT alert",
@@ -515,8 +512,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
@@ -546,7 +542,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.1",
+      "pluginVersion": "7.1.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -623,8 +619,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "custom": {}
         },
         "overrides": []
       },
@@ -654,7 +649,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.1",
+      "pluginVersion": "7.1.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -724,7 +719,7 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -743,5 +738,5 @@
   "timezone": "",
   "title": "Bots Healthecks",
   "uid": "asterios",
-  "version": 18
+  "version": 1
 }
