@@ -11,10 +11,17 @@ scrape_configs:
           - prometheus:9090
           - grafana:3000
           - metrics:80
+  - job_name: 'bots-env'
+    static_configs:
+      - targets:
+          - metrics:80
+    basic_auth:
+      username: ""
+      password: ""
   - job_name: 'node_exporter'
     static_configs:
       - targets:
           - node.webhook.pp.ua
-        basic_auth:
-          username: user
-          password: password
+    basic_auth:
+      username: ""
+      password: ""
