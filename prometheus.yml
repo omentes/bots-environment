@@ -9,10 +9,15 @@ scrape_configs:
     static_configs:
       - targets:
           - prometheus:9090
-          - pushgateway:9091
           - grafana:3000
           - metrics.webhook.pp.ua
+        basic_auth:
+          username: user
+          password: password
   - job_name: 'node_exporter'
     static_configs:
       - targets:
           - node.webhook.pp.ua
+        basic_auth:
+          username: user
+          password: password
