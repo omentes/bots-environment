@@ -11,9 +11,6 @@ scrape_configs:
           - prometheus:9090
           - grafana:3000
           - metrics:80
-        basic_auth:
-          username: user
-          password: password
   - job_name: 'node_exporter'
     static_configs:
       - targets:
