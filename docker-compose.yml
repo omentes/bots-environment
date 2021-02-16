@@ -51,7 +51,7 @@ services:
   grafana:
     container_name: 'telegram-bots-grafana'
     image: grafana/grafana:7.1.1
-    user: "0"
+    restart: always
     ports:
       - 3000:3000
     environment:
@@ -63,7 +63,6 @@ services:
       - grafanadata:/var/lib/grafana
     networks:
       - tier
-    restart: always
 
   renderer:
     image: grafana/grafana-image-renderer:latest
@@ -71,6 +70,8 @@ services:
     restart: always
     ports:
       - 8081:8081
+    networks:
+      - tier
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
