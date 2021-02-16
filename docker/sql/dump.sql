@@ -332,3 +332,59 @@ CREATE TABLE IF NOT EXISTS `request_limiter` (
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
+
+create table notification
+(
+    id int auto_increment
+        primary key,
+    chat_id int null,
+    type enum('cabrio', 'toi3', 'toi8', 'toi11') collate utf8_unicode_ci not null,
+    server int not null,
+    enabled int(1) default 1 null,
+    created_at timestamp default CURRENT_TIMESTAMP null,
+    updated_at timestamp default CURRENT_TIMESTAMP null,
+    constraint notification_chat_id_server_type_uindex
+        unique (chat_id, server, type)
+)
+    charset=utf8mb4;
+
+create index notification_chat_id_index
+	on notification (chat_id);
+
+create index notification_created_index
+	on notification (created_at);
+
+create table event
+(
+    id int auto_increment
+        primary key,
+    server int not null,
+    type enum('cabrio', 'toi3', 'toi8', 'toi11') not null,
+    message text not null,
+    used int(1) null,
+    created_at timestamp default CURRENT_TIMESTAMP null,
+    updated_at timestamp default CURRENT_TIMESTAMP null
+)
+    charset=utf8mb4;
+
+create table version
+(
+    id int auto_increment
+        primary key,
+    version varchar(12) not null,
+    description longtext null,
+    used int(1) default 0 null,
+    created_at timestamp default CURRENT_TIMESTAMP null
+)
+    charset=utf8;
+
+create table version_notification
+(
+    chat_id int null,
+    version_id int null,
+    created_at timestamp default CURRENT_TIMESTAMP null,
+    constraint version_notification_user_id_version_id_uindex
+        unique (chat_id, version_id)
+)
+    charset=utf8;
+
