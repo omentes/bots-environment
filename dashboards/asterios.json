@@ -351,9 +351,10 @@
         {
           "format": "table",
           "group": [],
+          "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  created AS \"time\",\n  count(id) as \"Enabled (All Time)\\:\"\nFROM notification\nWHERE\n  enabled = 1",
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"Enabled (All Time)\\:\"\nFROM notification\nWHERE\n  enabled = 1",
           "refId": "B",
           "select": [
             [
@@ -381,7 +382,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  created AS \"time\",\n  count(id) as \"All\\:\"\nFROM notification",
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"All\\:\"\nFROM notification",
           "refId": "C",
           "select": [
             [
@@ -409,7 +410,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  created AS \"time\",\n  COALESCE(COUNT(chat_id), 0) as \"New (Enabled)\\:\"\nFROM notification\nWHERE\n  $__timeFilter(created)",
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  COALESCE(COUNT(chat_id), 0) as \"New (Enabled)\\:\"\nFROM notification\nWHERE\n  $__timeFilter(created_at)",
           "refId": "A",
           "select": [
             [
@@ -1089,7 +1090,7 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1108,5 +1109,5 @@
   "timezone": "",
   "title": "Bots Healthecks",
   "uid": "asterios",
-  "version": 18
+  "version": 22
 }
