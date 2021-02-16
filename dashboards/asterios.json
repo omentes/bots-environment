@@ -410,7 +410,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  created_at AS \"time\",\n  COALESCE(COUNT(chat_id), 0) as \"New (Enabled)\\:\"\nFROM notification\nWHERE\n  $__timeFilter(created_at)",
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  COALESCE(COUNT(chat_id), 0) as \"New (Enabled)\\:\"\nFROM notification\nWHERE\n  enabled = 1 AND\n  $__timeFilter(created_at)",
           "refId": "A",
           "select": [
             [
@@ -1090,7 +1090,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
@@ -1109,5 +1109,5 @@
   "timezone": "",
   "title": "Bots Healthecks",
   "uid": "asterios",
-  "version": 22
+  "version": 23
 }
