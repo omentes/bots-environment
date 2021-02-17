@@ -144,7 +144,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "asterios x3 parser",
+      "title": "asterios x3",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -550,7 +550,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "asterios x5 parser",
+      "title": "asterios x5",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -786,7 +786,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "asterios x7 parser",
+      "title": "asterios x7",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -929,7 +929,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "asterios bot worker",
+      "title": "asterios bot",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1090,7 +1090,7 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -1109,5 +1109,5 @@
   "timezone": "",
   "title": "Bots Healthecks",
   "uid": "asterios",
-  "version": 23
+  "version": 24
 }
