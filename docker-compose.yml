@@ -31,6 +31,8 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/pma.ini
     ports:
       - '8006:80'
     networks:
