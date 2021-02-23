@@ -1074,7 +1074,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All Time\\:\"\nFROM user",
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All\\:\"\nFROM user",
           "refId": "B",
           "select": [
             [
@@ -1477,7 +1477,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  created_at AS \"time\",\n  COALESCE(COUNT(user_id), 0) as \"New All\\:\"\nFROM learn_notification",
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  COALESCE(COUNT(user_id), 0) as \"All\\:\"\nFROM learn_notification",
           "refId": "B",
           "select": [
             [
@@ -1505,7 +1505,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  deleted_at AS \"time\",\n  COALESCE(COUNT(user_id), 0) as \"Not found\\:\"\nFROM user_notification\nwhere deleted = 1 and\n  $__timeFilter(deleted_at)",
+          "rawSql": "SELECT\n  deleted_at AS \"time\",\n  COALESCE(COUNT(user_id), 0) as \"Not found chat\\:\"\nFROM user_notification\nwhere deleted = 1 and\n  $__timeFilter(deleted_at)",
           "refId": "C",
           "select": [
             [
@@ -1533,7 +1533,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  deleted_at AS \"time\",\n  COALESCE(COUNT(user_id), 0) as \"Not found All\\:\"\nFROM user_notification\nwhere deleted = 1",
+          "rawSql": "SELECT\n  deleted_at AS \"time\",\n  COALESCE(COUNT(user_id), 0) as \"Not found chat (all)\\:\"\nFROM user_notification\nwhere deleted = 1",
           "refId": "D",
           "select": [
             [
@@ -2148,7 +2148,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
@@ -2167,5 +2167,5 @@
   "timezone": "",
   "title": "Bots",
   "uid": "asterios",
-  "version": 14
+  "version": 15
 }
