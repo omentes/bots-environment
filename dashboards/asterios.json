@@ -61,7 +61,7 @@
             "for": "30s",
             "frequency": "5s",
             "handler": 1,
-            "message": "X3 HERAK",
+            "message": "Количество ответов фида х3 Астериоса упала меньше 1го в минуту.",
             "name": "X3 alert",
             "noDataState": "alerting",
             "notifications": [
@@ -467,7 +467,7 @@
             "for": "30s",
             "frequency": "5s",
             "handler": 1,
-            "message": "X5 HERAK",
+            "message": "Количество ответов фида х5 Астериоса упала меньше 1го в минуту.",
             "name": "X5 alert",
             "noDataState": "alerting",
             "notifications": [
@@ -708,12 +708,15 @@
             "for": "30s",
             "frequency": "5s",
             "handler": 1,
-            "message": "X7 HERAK",
+            "message": "Количество ответов фида х7 Астериоса упала меньше 1го в минуту.",
             "name": "X7 alert",
             "noDataState": "alerting",
             "notifications": [
               {
                 "uid": "jxOwPDYGk"
+              },
+              {
+                "uid": "G4p3RbyMk"
               }
             ]
           },
@@ -1378,7 +1381,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 88
+                "value": 167
               }
             ]
           }
@@ -2534,7 +2537,7 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -2553,5 +2556,5 @@
   "timezone": "",
   "title": "Bots",
   "uid": "asterios",
-  "version": 3
+  "version": 5
 }
