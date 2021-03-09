@@ -1,6 +1,39 @@
 version: '3'
 
 services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    container_name: 'telegram-bots-nginx'
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app/
+    networks:
+      - tier
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  metrics:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: 'telegram-bots-php'
+    restart: always
+    volumes:
+      - .:/app/
+    networks:
+      - tier
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+
   mysql:
     image: mysql:5.7.22
     container_name: 'telegram-bots-mysql'

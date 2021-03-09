@@ -12,15 +12,15 @@ up: network
 	docker-compose up -d
 
 .PHONY: mysql
-mysql: up
+mysql:
 	docker-compose exec mysql mysql ${ARGS}
 
 .PHONY: mysql-dump
-mysql-dump: up
+mysql-dump:
 	docker-compose exec mysql mysqldump -u root --all-databases > ${ARGS}
 
 .PHONY: redis
-redis: up
+redis:
 	docker-compose exec redis redis-cli ${ARGS}
 
 .PHONY: stop
@@ -28,8 +28,13 @@ stop:
 	docker-compose stop ${ARGS}
 
 .PHONY: redis-m
-redis-m: up
+redis-m:
 	docker-compose exec redis redis-cli MONITOR
+
+.PHONY: redis-clear-1
+redis-clear-1:
+	docker-compose exec redis redis-cli -n 1 flushdb
+
 
 .PHONY: network
 network:
