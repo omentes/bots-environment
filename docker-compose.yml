@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
-    container_name: 'telegram-bots-nginx'
+    container_name: 'telegram-bots-metrics'
     restart: always
     ports:
       - "8080:80"
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: 'telegram-bots-php'
+    container_name: 'telegram-bots-metricsphp'
     restart: always
     volumes:
       - .:/app/
