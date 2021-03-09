@@ -21,7 +21,7 @@ if (isset($_REQUEST['uri'])) {
         );
         $registry = CollectorRegistry::getDefault();
         $renderer = new RenderTextFormat();
-        $result = $renderer->render($registry->getRegistry()->getMetricFamilySamples());
+        $result = $renderer->render($registry->getMetricFamilySamples());
         header('Content-type: ' . RenderTextFormat::MIME_TYPE);
         echo $result;
         die;
