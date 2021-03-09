@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  nginx:
+  metrics:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -18,7 +18,7 @@ services:
         max-size: "10m"
         max-file: "3"
 
-  metrics:
+  metricsphp:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
