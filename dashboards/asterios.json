@@ -19,7 +19,7 @@
   "links": [],
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -28,945 +28,1143 @@
         "y": 0
       },
       "id": 11,
-      "panels": [
-        {
-          "alert": {
-            "alertRuleTags": {},
-            "conditions": [
-              {
-                "evaluator": {
-                  "params": [
-                    1
-                  ],
-                  "type": "lt"
-                },
-                "operator": {
-                  "type": "and"
-                },
-                "query": {
-                  "params": [
-                    "A",
-                    "10s",
-                    "now"
-                  ]
-                },
-                "reducer": {
-                  "params": [],
-                  "type": "sum"
-                },
-                "type": "query"
-              }
-            ],
-            "executionErrorState": "alerting",
-            "for": "30s",
-            "frequency": "5s",
-            "handler": 1,
-            "message": "Количество ответов фида х3 Астериоса упала меньше 1го в минуту.",
-            "name": "X3 alert",
-            "noDataState": "alerting",
-            "notifications": [
-              {
-                "uid": "jxOwPDYGk"
-              }
-            ]
-          },
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 1
-          },
-          "hiddenSeries": false,
-          "id": 2,
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "increase(asterios_bot_healthcheck_x3[1m])",
-              "format": "time_series",
-              "hide": false,
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "parser",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [
-            {
-              "colorMode": "critical",
-              "fill": true,
-              "line": true,
-              "op": "lt",
-              "value": 1
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "asterios x3",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": -1,
-              "format": "short",
-              "label": "requests per minute",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "datasource": "MySQL Asterios",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": null
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 100
-                  },
-                  {
-                    "color": "#6ED0E0",
-                    "value": 500
-                  },
-                  {
-                    "color": "red",
-                    "value": 1000
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 2500
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 5,
-            "x": 12,
-            "y": 1
-          },
-          "id": 18,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "first"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "7.1.1",
-          "targets": [
-            {
-              "format": "table",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"NEW\\:\"\nFROM user\nWHERE\n  $__timeFilter(created_at)\nORDER BY created_at",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "user",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            },
-            {
-              "format": "time_series",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All Time\\:\"\nFROM user",
-              "refId": "B",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "callback_query",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Asterios Bot Users",
-          "type": "stat"
-        },
-        {
-          "datasource": "MySQL Asterios",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 7,
-            "x": 17,
-            "y": 1
-          },
-          "id": 21,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "center",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "last"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "7.1.1",
-          "targets": [
-            {
-              "format": "table",
-              "group": [],
-              "hide": false,
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"Enabled (All Time)\\:\"\nFROM notification\nWHERE\n  enabled = 1",
-              "refId": "B",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "callback_query",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            },
-            {
-              "format": "table",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"All\\:\"\nFROM notification",
-              "refId": "C",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "callback_query",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            },
-            {
-              "format": "table",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  COALESCE(COUNT(chat_id), 0) as \"New (Enabled)\\:\"\nFROM notification\nWHERE\n  enabled = 1 AND\n  $__timeFilter(created_at)",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "callback_query",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Active RB Notification Subscribes",
-          "type": "stat"
-        },
-        {
-          "alert": {
-            "alertRuleTags": {},
-            "conditions": [
-              {
-                "evaluator": {
-                  "params": [
-                    1
-                  ],
-                  "type": "lt"
-                },
-                "operator": {
-                  "type": "and"
-                },
-                "query": {
-                  "params": [
-                    "A",
-                    "10s",
-                    "now"
-                  ]
-                },
-                "reducer": {
-                  "params": [],
-                  "type": "sum"
-                },
-                "type": "query"
-              }
-            ],
-            "executionErrorState": "alerting",
-            "for": "30s",
-            "frequency": "5s",
-            "handler": 1,
-            "message": "Количество ответов фида х5 Астериоса упала меньше 1го в минуту.",
-            "name": "X5 alert",
-            "noDataState": "alerting",
-            "notifications": [
-              {
-                "uid": "jxOwPDYGk"
-              }
-            ]
-          },
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 8
-          },
-          "hiddenSeries": false,
-          "id": 4,
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "increase(asterios_bot_healthcheck_x5[1m])",
-              "format": "time_series",
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "parser",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [
-            {
-              "colorMode": "critical",
-              "fill": true,
-              "line": true,
-              "op": "lt",
-              "value": 1
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "asterios x5",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": -1,
-              "format": "short",
-              "label": "requests per minute",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 12,
-            "y": 8
-          },
-          "hiddenSeries": false,
-          "id": 14,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "increase(asterios_bot_usage[1m])",
-              "interval": "",
-              "legendFormat": "usage",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "asterios bot usage",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "alert": {
-            "alertRuleTags": {},
-            "conditions": [
-              {
-                "evaluator": {
-                  "params": [
-                    1
-                  ],
-                  "type": "lt"
-                },
-                "operator": {
-                  "type": "and"
-                },
-                "query": {
-                  "params": [
-                    "A",
-                    "10s",
-                    "now"
-                  ]
-                },
-                "reducer": {
-                  "params": [],
-                  "type": "sum"
-                },
-                "type": "query"
-              }
-            ],
-            "executionErrorState": "alerting",
-            "for": "30s",
-            "frequency": "5s",
-            "handler": 1,
-            "message": "Количество ответов фида х7 Астериоса упала меньше 1го в минуту.",
-            "name": "X7 alert",
-            "noDataState": "alerting",
-            "notifications": [
-              {
-                "uid": "jxOwPDYGk"
-              }
-            ]
-          },
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 15
-          },
-          "hiddenSeries": false,
-          "id": 6,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "increase(asterios_bot_healthcheck_x7[1m])",
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [
-            {
-              "colorMode": "critical",
-              "fill": true,
-              "line": true,
-              "op": "lt",
-              "value": 1
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "asterios x7",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": -1,
-              "format": "short",
-              "label": "requests per minute",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "alert": {
-            "alertRuleTags": {},
-            "conditions": [
-              {
-                "evaluator": {
-                  "params": [
-                    1
-                  ],
-                  "type": "lt"
-                },
-                "operator": {
-                  "type": "and"
-                },
-                "query": {
-                  "params": [
-                    "A",
-                    "10s",
-                    "now"
-                  ]
-                },
-                "reducer": {
-                  "params": [],
-                  "type": "sum"
-                },
-                "type": "query"
-              }
-            ],
-            "executionErrorState": "alerting",
-            "for": "20s",
-            "frequency": "10s",
-            "handler": 1,
-            "message": "Notify Asterios HERAK",
-            "name": "asterios bot notify",
-            "noDataState": "alerting",
-            "notifications": []
-          },
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 12,
-            "y": 15
-          },
-          "hiddenSeries": false,
-          "id": 9,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "increase(asterios_bot_healthcheck_bot_notify[1m])",
-              "format": "table",
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [
-            {
-              "colorMode": "critical",
-              "fill": true,
-              "line": true,
-              "op": "lt",
-              "value": 1
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "asterios bot notify worker",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": -1,
-              "format": "short",
-              "label": "requests per minute",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
+      "panels": [],
       "repeat": null,
       "title": "Asterios",
       "type": "row"
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                1
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "10s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "sum"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "30s",
+        "frequency": "5s",
+        "handler": 1,
+        "message": "Количество ответов фида х3 Астериоса упала меньше 1го в минуту.",
+        "name": "X3 alert",
+        "noDataState": "alerting",
+        "notifications": [
+          {
+            "uid": "jxOwPDYGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(asterios_bot_healthcheck_x3[1m])",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "parser",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 1
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "asterios x3",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": -1,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "MySQL Asterios",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 1250
+              },
+              {
+                "color": "#EAB839",
+                "value": 2500
+              },
+              {
+                "color": "red",
+                "value": 5000
+              },
+              {
+                "color": "dark-red",
+                "value": 10000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 12,
+        "y": 1
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"NEW\\:\"\nFROM user\nWHERE\n  $__timeFilter(created_at)\nORDER BY created_at",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "user",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All Time\\:\"\nFROM user",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "callback_query",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Asterios Bot Users",
+      "type": "stat"
+    },
+    {
+      "datasource": "MySQL Asterios",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 1250
+              },
+              {
+                "color": "#EAB839",
+                "value": 2500
+              },
+              {
+                "color": "#EF843C",
+                "value": 5000
+              },
+              {
+                "color": "red",
+                "value": 10000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 17,
+        "y": 1
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"Enabled (All Time)\\:\"\nFROM notification\nWHERE\n  enabled = 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "callback_query",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"All\\:\"\nFROM notification",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "callback_query",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  COALESCE(COUNT(chat_id), 0) as \"New (Enabled)\\:\"\nFROM notification\nWHERE\n  enabled = 1 AND\n  $__timeFilter(created_at)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "callback_query",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active RB Notification Subscribes",
+      "type": "stat"
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                1
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "10s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "sum"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "30s",
+        "frequency": "5s",
+        "handler": 1,
+        "message": "Количество ответов фида х5 Астериоса упала меньше 1го в минуту.",
+        "name": "X5 alert",
+        "noDataState": "alerting",
+        "notifications": [
+          {
+            "uid": "jxOwPDYGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(asterios_bot_healthcheck_x5[1m])",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "parser",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 1
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "asterios x5",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": -1,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      "hiddenSeries": false,
+      "id": 14,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(asterios_bot_usage[1m])",
+          "interval": "",
+          "legendFormat": "usage",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "asterios bot usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                1
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "10s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "sum"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "30s",
+        "frequency": "5s",
+        "handler": 1,
+        "message": "Количество ответов фида х7 Астериоса упала меньше 1го в минуту.",
+        "name": "X7 alert",
+        "noDataState": "alerting",
+        "notifications": [
+          {
+            "uid": "jxOwPDYGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 13
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(asterios_bot_healthcheck_x7[1m])",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 1
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "asterios x7",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": -1,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 13
+      },
+      "hiddenSeries": false,
+      "id": 36,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(asterios_bot_usage_image[1m])",
+          "interval": "",
+          "legendFormat": "usage",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "asterios bot usage image",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                1
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "10s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "sum"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "20s",
+        "frequency": "10s",
+        "handler": 1,
+        "message": "Notify Asterios HERAK",
+        "name": "asterios bot notify",
+        "noDataState": "alerting",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(asterios_bot_healthcheck_bot_notify[1m])",
+          "format": "table",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 1
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "asterios bot notify worker",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": -1,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 19
+      },
+      "hiddenSeries": false,
+      "id": 37,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(asterios_bot_usage_html[1m])",
+          "interval": "",
+          "legendFormat": "usage",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "asterios bot usage html",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -975,7 +1173,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 25
       },
       "id": 16,
       "panels": [],
@@ -1022,7 +1220,7 @@
         "h": 5,
         "w": 6,
         "x": 0,
-        "y": 2
+        "y": 26
       },
       "id": 27,
       "options": {
@@ -1120,19 +1318,19 @@
               },
               {
                 "color": "#EAB839",
-                "value": 100
+                "value": 500
               },
               {
                 "color": "dark-orange",
-                "value": 1000
+                "value": 10000
               },
               {
                 "color": "red",
-                "value": 2500
+                "value": 15000
               },
               {
                 "color": "dark-red",
-                "value": 5000
+                "value": 25000
               }
             ]
           }
@@ -1143,7 +1341,7 @@
         "h": 5,
         "w": 12,
         "x": 6,
-        "y": 2
+        "y": 26
       },
       "id": 30,
       "options": {
@@ -1388,7 +1586,7 @@
         "h": 5,
         "w": 6,
         "x": 18,
-        "y": 2
+        "y": 26
       },
       "id": 31,
       "options": {
@@ -1522,7 +1720,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 31
       },
       "id": 33,
       "options": {
@@ -1589,7 +1787,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 31
       },
       "hiddenSeries": false,
       "id": 24,
@@ -1784,7 +1982,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 15
+        "y": 39
       },
       "id": 32,
       "options": {
@@ -1846,7 +2044,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 15
+        "y": 39
       },
       "hiddenSeries": false,
       "id": 34,
@@ -1945,7 +2143,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 15
+        "y": 39
       },
       "hiddenSeries": false,
       "id": 35,
@@ -2027,363 +2225,444 @@
       }
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 47
       },
       "id": 26,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 3
-          },
-          "hiddenSeries": false,
-          "id": 23,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "increase(telegram_bots_usage_currency[1m])",
-              "format": "table",
-              "instant": false,
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "currency bot usage",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": -1,
-              "format": "short",
-              "label": "requests per minute",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "datasource": "MySQL Currency",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": null
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 100
-                  },
-                  {
-                    "color": "#6ED0E0",
-                    "value": 500
-                  },
-                  {
-                    "color": "red",
-                    "value": 1000
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 2500
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 12,
-            "y": 3
-          },
-          "id": 29,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "first"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "7.1.1",
-          "targets": [
-            {
-              "format": "table",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"NEW\\:\"\nFROM user\nWHERE\n  $__timeFilter(created_at)\nORDER BY created_at",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "user",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            },
-            {
-              "format": "time_series",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All Time\\:\"\nFROM user",
-              "refId": "B",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "callback_query",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Currency Bot Users",
-          "type": "stat"
-        },
-        {
-          "datasource": "MySQL Emoji",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": null
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 100
-                  },
-                  {
-                    "color": "#6ED0E0",
-                    "value": 500
-                  },
-                  {
-                    "color": "red",
-                    "value": 1000
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 2500
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 18,
-            "y": 3
-          },
-          "id": 28,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "first"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "7.1.1",
-          "targets": [
-            {
-              "format": "table",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"NEW\\:\"\nFROM user\nWHERE\n  $__timeFilter(created_at)\nORDER BY created_at",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "user",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            },
-            {
-              "format": "time_series",
-              "group": [],
-              "metricColumn": "none",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All Time\\:\"\nFROM user",
-              "refId": "B",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "id"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "callback_query",
-              "timeColumn": "created_at",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Emoji Bot Users",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Other bots",
       "type": "row"
+    },
+    {
+      "datasource": "MySQL Currency",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 500
+              },
+              {
+                "color": "red",
+                "value": 1000
+              },
+              {
+                "color": "dark-red",
+                "value": 2500
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 48
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"NEW\\:\"\nFROM user\nWHERE\n  $__timeFilter(created_at)\nORDER BY created_at",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "user",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All Time\\:\"\nFROM user",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "callback_query",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Currency Bot Users",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 48
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "increase(telegram_bots_usage_currency[1m])",
+          "format": "table",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "currency bot usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": -1,
+          "format": "short",
+          "label": "requests per minute",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "MySQL Currency",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 500
+              },
+              {
+                "color": "red",
+                "value": 1000
+              },
+              {
+                "color": "dark-red",
+                "value": 2500
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 48
+      },
+      "id": 38,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  user.updated_at AS \"time\",\n  user.username as UserName,\n  user.first_name as FirstName,\n  user.last_name as LastName,\n  user.id as \"user id\"\nFROM user\nWHERE\n  is_bot = 0 AND\n  $__timeFilter(updated_at)\norder by updated_at desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "user",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Currency Bot Users",
+      "type": "table"
+    },
+    {
+      "datasource": "MySQL Emoji",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 500
+              },
+              {
+                "color": "red",
+                "value": 1000
+              },
+              {
+                "color": "dark-red",
+                "value": 2500
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 56
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "first"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) as \"NEW\\:\"\nFROM user\nWHERE\n  $__timeFilter(created_at)\nORDER BY created_at",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "user",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  count(id) AS \"All Time\\:\"\nFROM user",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "callback_query",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Emoji Bot Users",
+      "type": "stat"
     }
   ],
-  "refresh": "10s",
+  "refresh": "5s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -2391,7 +2670,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
@@ -2410,5 +2689,5 @@
   "timezone": "",
   "title": "Bots",
   "uid": "asterios",
-  "version": 10
+  "version": 16
 }
